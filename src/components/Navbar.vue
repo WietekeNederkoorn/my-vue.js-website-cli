@@ -29,22 +29,33 @@ export default{
     components:{
         NavbarLink
     },
+    created(){
+        this.getThemeSetting();
+    },
     props:['pages', 'activePage', 'navLinkClick'],
     data(){
-                return{
-                    theme: 'light,'
-                }
-            },
-            methods: {
-                changeTheme(){
-                    let theme='light';
-
-                    if (this.theme=='light'){
-                        theme='dark';
-                    }
-
-                    this.theme=theme; 
-                }
+        return{
+            theme: 'light',
+        }
+    },
+    methods: {
+        changeTheme(){
+            let theme='light';
+            if (this.theme=='light'){
+                theme='dark';
             }
+            this.theme=theme; 
+            this.storeThemeSetting();
+        },
+        storeThemeSetting(){
+            localStorage.setItem('theme',this.theme);
+        },
+        getThemeSetting(){
+            let theme=localStorage.getItem('theme');
+            if(theme){
+                this.theme=theme;
+            }
+        }
+    }
 }
 </script>
